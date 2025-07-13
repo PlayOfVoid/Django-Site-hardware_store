@@ -1,8 +1,9 @@
-#about
+# about
 
 всем привет, этой мой сайт на django - интернет магаз техники
 
-#instalation
+# instalation
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -12,7 +13,7 @@ cd www
 python manage.py runserver
 ```
 
-#Presentation
+# Presentation
 ```
      _   _   _ _____ _   _  ___  ____         ____  _              ___   ____     __    _     _ 
     / \ | | | |_   _| | | |/ _ \|  _ \   _   |  _ \| | __ _ _   _ / _ \ / _\ \   / /__ (_) __| |
@@ -22,4 +23,5 @@ python manage.py runserver
                                                             |___/
 
 
+## ScreenShots
 ![image](...)
