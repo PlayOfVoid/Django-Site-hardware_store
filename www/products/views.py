@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def index(request):
-    popular_products = Product.objects.order_by('-click_count')[:3]
+    popular_products = Product.objects.order_by('-click_count')[:6]
     return render(request,'products/index.html',{'popular_products':popular_products})
 
 
@@ -13,7 +13,7 @@ def index(request):
 def catalog(request):
     products = Product.objects.all()
     categories = CategoryProduct.objects.all()
-    per_page = 5
+    per_page = 12
     paginator = Paginator(products, per_page)
     page_number = request.GET.get('page')
 
@@ -45,11 +45,18 @@ def product_detail(request,product_id):
     product.save()
     return render(request,"products/product_detail.html",{"product":product})
 
-def category(request,category_id):
-    context = {
-            'category':get_object_or_404(CategoryProduct,pk=category_id)
-            }
-    return render(request,"products/onecategoryonly.html",context)
+def category(request, category_id):
+    """Отображает товары из выбранной категории."""
 
+    current_category = get_object_or_404(CategoryProduct, pk=category_id)  # Получаем объект категории
+
+    product_category = Product.objects.filter(category=current_category)  # Фильтруем товары по категории
+
+    context = {
+        'category': current_category,
+        'products': product_category,  # Передаем список товаров в шаблон
+    }
+
+    return render(request, "products/onecategoryonly.html", context)
 
 

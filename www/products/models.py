@@ -27,7 +27,9 @@ class Product(models.Model):
 
 
     def __str__(self):
-        return F"{self.name} | {self.price}"
+        return F"{self.name} | {self.price}   ----|\__( click:{self.click_count})"
+
+
 
 
 
