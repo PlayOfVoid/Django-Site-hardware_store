@@ -1,6 +1,6 @@
 db.sqlite3
 .venv
 .idea
-**/__pycached__
+**/__pycache__
 media
 
