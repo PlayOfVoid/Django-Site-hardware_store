@@ -22,5 +22,9 @@ python manage.py runserver
                                                             |___/                               ```
 
 
-![image]()
+
+
+
+
+![image](...)
 
