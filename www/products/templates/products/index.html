@@ -1,0 +1,69 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТехноРай - Ваш проводник в мир технологий!</title>
+    <meta name="description" content="Интернет-магазин техники с широким ассортиментом: компьютеры, смартфоны, бытовая техника и многое другое. Гарантия качества, быстрая доставка!">
+    <link rel="stylesheet" href="{%static 'style/index.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>ТехноРай</h1>
+            <p>Ваш проводник в мир технологий!</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">Каталог</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <section class="hero">
+            <div class="container">
+                <h2>Новейшие технологии по лучшим ценам!</h2>
+                <p>Откройте для себя мир инноваций с ТехноРай. Смартфоны, компьютеры, бытовая техника и многое другое - все в одном месте.</p>
+                <a href="#" class="button">Смотреть каталог</a>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <div class="container">
+                <h2>Самые Популярные товары</h2>
+                <div class="product-grid">
+                    {%for product in popular_products%}
+                    <div class="product">
+                        <img src="{{product.image.url}}" alt="{{product.name}}">
+                        <h3>{{product.name}}</h3>
+                        <p>{{product.dsc | truncatechars:50 }}.</p>
+                        <a href="{%url 'products:product_detail' product.id%}" class="button">Подробнее</a>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ТехноРай. Все права защищены.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

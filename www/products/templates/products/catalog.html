@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - ТехноРай</title>
+
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>ТехноРай</h1>
+
+            <p>Ваш проводник в мир технологий!</p>
+        </div>
+    </header>
+
+    <nav>
+
+        <div class="container">
+            <ul>
+                <li><a href="{% url 'products:index' %}">Главная</a></li> <!-- Замени 'home' на URL-имя для главной страницы -->
+
+                <li><a href="{% url 'products:catalog' %}">Каталог</a></li> <!-- Замени 'catalog' на URL-имя для этой страницы -->
+
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="catalog">
+            <div class="container">
+                <h2>Каталог товаров</h2>
+
+                <div class="product-grid">
+                    {% for product in page_obj %}
+                        <div class="product">
+                            <img src="{{product.image.url}}" alt="{{ product.name }}">
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.dsc|truncatechars:100 }}</p> <!-- Ограничение описания -->
+                            <p>Цена: {{ product.price }} руб.</p>
+
+                            <a href="{% url 'products:product_detail' product.pk %}" class="button">Подробнее</a> <!-- Замени 'product_detail' и product.id -->
+                        </div>
+                    {% empty %}
+                        <p>В данной категории товаров нет.</p>
+
+                    {% endfor %}
+                </div>
+
+                <div class="pagination">
+                    <span class="step-links">
+
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; первая</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+
+
+                <div class="categories">
+                    <h3>Категории</h3>
+                    <ul>
+                        {% for category in categories %}
+                            <li><a href="{% url 'products:category' category.id %}">{{ category.name }}</a></li> <!-- Замени 'catalog_by_category' и category.id -->
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ТехноРай. Все права защищены.</p>
+
+        </div>
+    </footer>
+
+</body>
+</html>
