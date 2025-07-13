@@ -2,4 +2,5 @@ db.sqlite3
 .venv
 .idea
 **/__pycached__
+media
 
