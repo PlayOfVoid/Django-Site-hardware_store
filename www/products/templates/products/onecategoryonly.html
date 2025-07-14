@@ -1,32 +1,64 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-      <link rel="stylesheet" href="{% static 'style/category.css' %}">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Товары категории {{ category.name }}</title>
+    <link rel="stylesheet" href="{% static 'style/category.css' %}">
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">  <!--  Подключите основной файл стилей для шапки -->
 </head>
 <body>
 
-    <h1>Товары категории "{{ category.name }}"</h1>
 
-    {% if products %}
-        <div class="product-list">
-            {% for product in products %}
-                <div class="product">
-                    <h3>{{ product.name }}</h3>
-                    <p>{{ product.dsc }}</p>
-                    <p>Цена: {{ product.price }} руб.</p>
-                    <img src="{{product.image.url}}" alt="{{ product.name }}">
-                    <!-- Добавь ссылку "Подробнее" или другие элементы управления здесь -->
-                    <a href="{% url 'products:product_detail' product.id %}">Подробнее</a>
-                </div>
-            {% endfor %}
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+
+                    <li><a href="{% url 'products:index' %}">Главная</a></li> <!-- Замените 'products:index' на URL вашей главной страницы, если отличается -->
+
+                    <li><a href="{% url 'products:catalog' %}">Каталог</a></li> <!-- Замените 'products:catalog' на URL страницы каталога, если отличается -->
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск...">
+                <button type="submit">Найти</button>
+            </div>
         </div>
-    {% else %}
-        <p>В этой категории пока нет товаров.</p>
-    {% endif %}
+    </header>
+
+    <main>
+        <h1>Товары категории "{{ category.name }}"</h1>
+
+
+        {% if products %}
+            <div class="product-list">
+                {% for product in products %}
+                    <div class="product">
+                        <h3>{{ product.name }}</h3>
+
+                        <p>{{ product.dsc }}</p>
+
+
+                        <p>Цена: {{ product.price }} руб.</p>
+                        <img src="{{product.image.url}}" alt="{{ product.name }}">
+                        <!-- Добавь ссылку "Подробнее" или другие элементы управления здесь -->
+                        <a href="{% url 'products:product_detail' product.id %}">Подробнее</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>В этой категории пока нет товаров.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ТехноРай</p>
+    </footer>
 
 </body>
-
 </html>
